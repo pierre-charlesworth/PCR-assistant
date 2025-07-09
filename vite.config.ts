@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
           registerType: 'autoUpdate',
           includeAssets: ['favicon.svg'],
           manifest: {
-            name: 'PCR Master Mix & Thermocycler Assistant',
-            short_name: 'PCR Assistant',
+            name: 'Mr. PCR',
+            short_name: 'MrPCR',
             description: 'A handy tool for calculating PCR master mixes and thermocycler programs.',
             theme_color: '#4f46e5',
             background_color: '#ffffff',

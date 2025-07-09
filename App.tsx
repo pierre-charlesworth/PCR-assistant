@@ -133,7 +133,7 @@ const App: React.FC = () => {
                     <div className="flex items-center space-x-3">
                         <DnaIcon className="h-10 w-10 text-cyan-500"/>
                         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
-                            PCR Master Mix Assistant
+                            Mr. PCR
                         </h1>
                     </div>
                 </header>
