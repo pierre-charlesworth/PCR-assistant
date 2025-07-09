@@ -1,0 +1,6 @@
+{
+  "name": "PCR Master Mix & Thermocycler Assistant",
+  "description": "An intelligent web application that helps molecular biologists calculate the perfect master mix for their PCR reactions. Users can specify the polymerase, number of reactions, and final volume. The app also allows for entering primer combinations and expected fragment sizes to generate an optimized thermocycler program using the Gemini API.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
