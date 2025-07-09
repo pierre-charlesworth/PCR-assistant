@@ -7,7 +7,7 @@ import ReactionInput from './components/ReactionInput';
 import PrimerInput from './components/PrimerInput';
 import MasterMixDisplay from './components/MasterMixDisplay';
 import ThermocyclerProgramDisplay from './components/ThermocyclerProgramDisplay';
-import { GithubIcon, DnaIcon } from './components/IconComponents';
+import { DnaIcon } from './components/IconComponents';
 import ModeToggle from './components/ModeToggle';
 
 const App: React.FC = () => {
@@ -136,9 +136,6 @@ const App: React.FC = () => {
                             PCR Master Mix Assistant
                         </h1>
                     </div>
-                    <a href="https://github.com/google/genaui" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors">
-                        <GithubIcon className="h-6 w-6" />
-                    </a>
                 </header>
 
                 <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">

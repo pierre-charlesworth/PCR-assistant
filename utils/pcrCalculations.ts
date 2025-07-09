@@ -33,7 +33,7 @@ const POLYMERASE_DETAILS = {
  * @param sequence The DNA sequence of the primer.
  * @returns The calculated Tm in degrees Celsius.
  */
-const calculateTm = (sequence: string): number => {
+export const calculateTm = (sequence: string): number => {
     if (!sequence) return 0;
     const seq = sequence.toUpperCase().replace(/[^ATGC]/g, '');
     const len = seq.length;

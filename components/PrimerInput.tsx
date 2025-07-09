@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Primer, PrimerCombination } from '../types';
 import { PlusIcon, TrashIcon } from './IconComponents';
+import { calculateTm } from '../utils/pcrCalculations';
 
 interface PrimerInputProps {
     primers: Primer[];
@@ -101,9 +102,35 @@ const PrimerInput: React.FC<PrimerInputProps> = ({ primers, setPrimers, primerCo
             <div>
                 <h3 className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3">Primer Combinations</h3>
                 <div className="space-y-4">
-                    {primerCombinations.map(combo => (
-                        <div key={combo.id} className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600 flex items-center space-x-3">
-                           <div className="flex-grow space-y-3">
+                    {primerCombinations.map(combo => {
+                        const forwardPrimer = primers.find(p => p.id === combo.forwardPrimerId);
+                        const reversePrimer = primers.find(p => p.id === combo.reversePrimerId);
+
+                        const tmDetails = (sequence: string) => {
+                            const seq = sequence.toUpperCase().replace(/[^ATGC]/g, '');
+                            const len = seq.length;
+                            if (len === 0) return { formula: 'N/A', tm: 0 };
+
+                            if (len < 14) {
+                                const countA = (seq.match(/A/g) || []).length;
+                                const countT = (seq.match(/T/g) || []).length;
+                                const countG = (seq.match(/G/g) || []).length;
+                                const countC = (seq.match(/C/g) || []).length;
+                                const formula = `Tm = (${countA}+${countT})*2 + (${countG}+${countC})*4`;
+                                return { formula, tm: calculateTm(seq) };
+                            }
+                            const gcCount = (seq.match(/[GC]/g) || []).length;
+                            const formula = `Tm = 64.9 + 41*(${gcCount}-16.4)/${len}`;
+                            return { formula, tm: calculateTm(seq) };
+                        };
+
+                        const fwdTm = forwardPrimer ? tmDetails(forwardPrimer.sequence) : null;
+                        const revTm = reversePrimer ? tmDetails(reversePrimer.sequence) : null;
+
+                        return (
+                        <div key={combo.id} className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600 space-y-3">
+                           <div className="flex items-center space-x-3">
+                             <div className="flex-grow space-y-3">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                      <select value={combo.forwardPrimerId} onChange={e => handleCombinationChange(combo.id, 'forwardPrimerId', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition">
                                         {primers.map((p, i) => <option key={p.id} value={p.id} disabled={p.id === combo.reversePrimerId}>{i + 1}. {p.name}</option>)}
@@ -132,13 +159,26 @@ const PrimerInput: React.FC<PrimerInputProps> = ({ primers, setPrimers, primerCo
                            </div>
                            <button
                                 onClick={() => handleRemoveCombination(combo.id)}
-                                className="text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors p-1.5 rounded-full"
+                                className="text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors p-1.5 rounded-full h-fit"
                                 aria-label="Remove combination"
                             >
                                 <TrashIcon className="h-5 w-5" />
                             </button>
+                           </div>
+
+                           {(fwdTm || revTm) && (
+                               <div className="bg-white/60 dark:bg-gray-800/40 rounded-md p-2 text-xs text-gray-700 dark:text-gray-300 border border-dashed border-gray-300 dark:border-gray-600">
+                                   {fwdTm && (
+                                       <p><span className="font-semibold">Fwd Tm:</span> {fwdTm.formula} = <span className="font-mono">{fwdTm.tm.toFixed(1)}°C</span></p>
+                                   )}
+                                   {revTm && (
+                                       <p><span className="font-semibold">Rev Tm:</span> {revTm.formula} = <span className="font-mono">{revTm.tm.toFixed(1)}°C</span></p>
+                                   )}
+                               </div>
+                           )}
                         </div>
-                    ))}
+                        );
+                    })}
                      <button onClick={handleAddCombination} className="w-full flex items-center justify-center space-x-2 border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-cyan-500 dark:hover:border-cyan-400 text-gray-500 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 font-semibold py-2 px-4 rounded-lg transition-all duration-200">
                         <PlusIcon className="h-5 w-5" />
                         <span>Add Combination</span>
