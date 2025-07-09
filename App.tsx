@@ -166,15 +166,6 @@ const App: React.FC = () => {
                                     primerCombinations={primerCombinations}
                                     setPrimerCombinations={setPrimerCombinations}
                                 />
-                                <button 
-                                    onClick={handleGenerateProgram}
-                                    disabled={!isAdvancedMode}
-                                    className="w-full mt-6 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                                >
-                                    <i className="fa-solid fa-microchip"></i>
-                                    <span>Generate Thermocycler Program</span>
-                                </button>
-                                {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
                             </div>
                         </fieldset>
                     </div>
@@ -193,6 +184,15 @@ const App: React.FC = () => {
                             primerCombinations={primerCombinations}
                        />
                        <fieldset disabled={!isAdvancedMode} className="disabled:opacity-50 transition-opacity">
+                         <button 
+                             onClick={handleGenerateProgram}
+                             disabled={!isAdvancedMode}
+                             className="w-full mb-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                         >
+                             <i className="fa-solid fa-microchip"></i>
+                             <span>Generate Thermocycler Program</span>
+                         </button>
+                         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
                          <ThermocyclerProgramDisplay programs={thermocyclerPrograms} primers={primers} primerCombinations={primerCombinations}/>
                        </fieldset>
                     </div>
