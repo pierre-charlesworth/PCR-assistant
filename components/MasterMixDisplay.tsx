@@ -26,33 +26,40 @@ interface MasterMixDisplayProps {
 const MasterMixTable: React.FC<{
     mixData: (Reagent & { totalVolume: string })[],
     instructions: React.ReactNode,
-}> = ({ mixData, instructions }) => (
-    <>
-        <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-                <thead className="bg-gray-50 dark:bg-gray-700 text-xs text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                    <tr>
-                        <th className="px-4 py-3">Component</th>
-                        <th className="px-4 py-3">Final Conc.</th>
-                        <th className="px-4 py-3 text-right normal-case">Volume (µL)</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {mixData.map((component, index) => (
-                        <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                            <td className="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap">{component.name}</td>
-                            <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{component.finalConcentration}</td>
-                            <td className="px-4 py-3 text-right font-mono text-cyan-600 dark:text-cyan-400">{component.totalVolume}</td>
+}> = ({ mixData, instructions }) => {
+    const totalVolume = mixData.reduce((acc, c) => acc + parseFloat(c.totalVolume), 0).toFixed(2);
+
+    return (
+        <>
+            <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                    <thead className="bg-gray-50 dark:bg-gray-700 text-xs text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                        <tr>
+                            <th className="px-4 py-3">Component</th>
+                            <th className="px-4 py-3">Final Conc.</th>
+                            <th className="px-4 py-3 text-right normal-case">Volume (µL)</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-sm text-blue-700 dark:text-blue-300">
-            {instructions}
-        </div>
-    </>
-);
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                        {mixData.map((component, index) => (
+                            <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap">{component.name}</td>
+                                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{component.finalConcentration}</td>
+                                <td className="px-4 py-3 text-right font-mono text-cyan-600 dark:text-cyan-400">{component.totalVolume}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="mt-2 text-right font-semibold text-gray-800 dark:text-gray-200">
+                Total Master Mix Volume: {totalVolume} µL
+            </div>
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-sm text-blue-700 dark:text-blue-300">
+                {instructions}
+            </div>
+        </>
+    );
+};
 
 
 const MasterMixDisplay: React.FC<MasterMixDisplayProps> = (props) => {
