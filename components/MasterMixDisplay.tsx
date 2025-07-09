@@ -34,7 +34,7 @@ const MasterMixTable: React.FC<{
                     <tr>
                         <th className="px-4 py-3">Component</th>
                         <th className="px-4 py-3">Final Conc.</th>
-                        <th className="px-4 py-3 text-right">Volume (µL)</th>
+                        <th className="px-4 py-3 text-right normal-case">Volume (µL)</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
