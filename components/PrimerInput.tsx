@@ -132,30 +132,42 @@ const PrimerInput: React.FC<PrimerInputProps> = ({ primers, setPrimers, primerCo
                            <div className="flex items-center space-x-3">
                              <div className="flex-grow space-y-3">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                     <select value={combo.forwardPrimerId} onChange={e => handleCombinationChange(combo.id, 'forwardPrimerId', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition">
-                                        {primers.map((p, i) => <option key={p.id} value={p.id} disabled={p.id === combo.reversePrimerId}>{i + 1}. {p.name}</option>)}
-                                    </select>
-                                    <select value={combo.reversePrimerId} onChange={e => handleCombinationChange(combo.id, 'reversePrimerId', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition">
-                                        {primers.map((p, i) => <option key={p.id} value={p.id} disabled={p.id === combo.forwardPrimerId}>{i + 1}. {p.name}</option>)}
-                                    </select>
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <input
-                                        type="number"
-                                        placeholder="Expected Fragment Size (bp)"
-                                        value={combo.fragmentSize || ''}
-                                        onChange={e => handleCombinationChange(combo.id, 'fragmentSize', parseInt(e.target.value) || 0)}
-                                        className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition"
-                                    />
-                                     <input
-                                        type="number"
-                                        placeholder="Number of Reactions"
-                                        value={combo.numReactions || ''}
-                                        onChange={e => handleCombinationChange(combo.id, 'numReactions', parseInt(e.target.value) || 1)}
-                                        className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition"
-                                        min="1"
-                                    />
-                                </div>
+                                        <div className="flex flex-col space-y-1">
+                                            <label className="text-xs font-semibold text-gray-600 dark:text-gray-300">Forward Primer</label>
+                                            <select value={combo.forwardPrimerId} onChange={e => handleCombinationChange(combo.id, 'forwardPrimerId', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition">
+                                                {primers.map((p, i) => <option key={p.id} value={p.id} disabled={p.id === combo.reversePrimerId}>{i + 1}. {p.name}</option>)}
+                                            </select>
+                                        </div>
+                                        <div className="flex flex-col space-y-1">
+                                            <label className="text-xs font-semibold text-gray-600 dark:text-gray-300">Reverse Primer</label>
+                                            <select value={combo.reversePrimerId} onChange={e => handleCombinationChange(combo.id, 'reversePrimerId', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition">
+                                                {primers.map((p, i) => <option key={p.id} value={p.id} disabled={p.id === combo.forwardPrimerId}>{i + 1}. {p.name}</option>)}
+                                            </select>
+                                        </div>
+                                  </div>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div className="flex flex-col space-y-1">
+                                            <label className="text-xs font-semibold text-gray-600 dark:text-gray-300">Fragment Size (bp)</label>
+                                            <input
+                                                type="number"
+                                                placeholder="e.g., 500"
+                                                value={combo.fragmentSize || ''}
+                                                onChange={e => handleCombinationChange(combo.id, 'fragmentSize', parseInt(e.target.value) || 0)}
+                                                className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col space-y-1">
+                                            <label className="text-xs font-semibold text-gray-600 dark:text-gray-300"># Reactions</label>
+                                            <input
+                                                type="number"
+                                                placeholder="e.g., 8"
+                                                value={combo.numReactions || ''}
+                                                onChange={e => handleCombinationChange(combo.id, 'numReactions', parseInt(e.target.value) || 1)}
+                                                className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block p-2.5 transition"
+                                                min="1"
+                                            />
+                                        </div>
+                                  </div>
                            </div>
                            <button
                                 onClick={() => handleRemoveCombination(combo.id)}
