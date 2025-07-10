@@ -7,7 +7,7 @@ import ReactionInput from './components/ReactionInput';
 import PrimerInput from './components/PrimerInput';
 import MasterMixDisplay from './components/MasterMixDisplay';
 import ThermocyclerProgramDisplay from './components/ThermocyclerProgramDisplay';
-import { DnaIcon } from './components/IconComponents';
+import logo from '/mr-pcr-logo.png';
 import ModeToggle from './components/ModeToggle';
 
 const App: React.FC = () => {
@@ -131,7 +131,7 @@ const App: React.FC = () => {
             <div className="max-w-7xl mx-auto">
                 <header className="flex justify-between items-center mb-8">
                     <div className="flex items-center space-x-3">
-                        <DnaIcon className="h-10 w-10 text-cyan-500"/>
+                        <img src={logo} alt="Mr. PCR logo" className="h-10 w-10" />
                         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
                             Mr. PCR
                         </h1>

@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
       plugins: [
         VitePWA({
           registerType: 'autoUpdate',
-          includeAssets: ['favicon.svg'],
+          includeAssets: ['mr-pcr-logo.png'],
           manifest: {
             name: 'Mr. PCR',
             short_name: 'MrPCR',
@@ -26,10 +26,16 @@ export default defineConfig(({ mode }) => {
             background_color: '#ffffff',
             icons: [
               {
-                src: 'favicon.svg',
-                sizes: 'any',
-                type: 'image/svg+xml',
-                purpose: 'any'
+                src: 'mr-pcr-logo.png',
+                sizes: '192x192',
+                type: 'image/png',
+                purpose: 'any maskable'
+              },
+              {
+                src: 'mr-pcr-logo.png',
+                sizes: '512x512',
+                type: 'image/png',
+                purpose: 'any maskable'
               }
             ]
           }
